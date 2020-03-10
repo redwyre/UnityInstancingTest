@@ -1,0 +1,27 @@
+﻿
+float3 _Center;
+float4 _Bounds;
+float3 _PanOffset;
+
+#include "MinimapInstanced.hlsl"
+
+#define THREAD_GROUP_SIZE_X 1
+#define THREAD_GROUP_SIZE_Y 1
+#define THREAD_GROUP_SIZE_Z 1
+
+#pragma kernel PassThrough
+#pragma kernel PassThrough A
+#pragma kernel PassThrough B
+#pragma kernel PassThrough C
+#pragma kernel PassThrough D
+#pragma kernel PassThrough E
+
+StructuredBuffer<float4x4> worldMatrixBufferInput;
+AppendStructuredBuffer<float4x4> worldMatrixBufferOutput;
+
+[numthreads(THREAD_GROUP_SIZE_X, THREAD_GROUP_SIZE_Y, THREAD_GROUP_SIZE_Z)]
+void PassThrough(uint3 id : SV_DispatchThreadID)
+{
+    float4x4 inMatrix = worldMatrixBufferInput[id.x];
+    worldMatrixBufferOutput.Append(inMatrix);
+}
