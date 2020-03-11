@@ -1,9 +1,4 @@
 ﻿
-float3 _Center;
-float4 _Bounds;
-float3 _PanOffset;
-
-#include "MinimapInstanced.hlsl"
 
 #define THREAD_GROUP_SIZE_X 1
 #define THREAD_GROUP_SIZE_Y 1
