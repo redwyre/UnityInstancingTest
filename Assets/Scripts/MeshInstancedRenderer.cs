@@ -36,13 +36,12 @@ public class MeshInstancedRenderer : MonoBehaviour
     private DrawMeshInstancedIndirectArgs5 args = new DrawMeshInstancedIndirectArgs5();
     private Bounds infiniteBounds = new Bounds(Vector3.zero, Vector3.positiveInfinity);
 
-    public int WorldMatrixBufferId = Shader.PropertyToID("worldMatrixBuffer");
+    int WorldMatrixBufferId = Shader.PropertyToID("worldMatrixBuffer");
 
     // Computer shader
-    public int WorldMatrixBufferInputId = Shader.PropertyToID("worldMatrixBufferInput");
-    public int WorldMatrixBufferOutputId = Shader.PropertyToID("worldMatrixBufferOutput");
-    public int BoundsId = Shader.PropertyToID("_Bounds");
-    private Vector3 offset = new Vector3(-4, -4, -4);
+    int WorldMatrixBufferInputId = Shader.PropertyToID("worldMatrixBufferInput");
+    int WorldMatrixBufferOutputId = Shader.PropertyToID("worldMatrixBufferOutput");
+    Vector3 offset = new Vector3(-4, -4, -4);
 
     public void Start()
     {
@@ -53,7 +52,8 @@ public class MeshInstancedRenderer : MonoBehaviour
         argsBuffer = new ComputeBuffer(1, DrawMeshInstancedIndirectArgs5.Size, ComputeBufferType.IndirectArguments);
 
         //cullComputeShaderInstance = Resources.Load<ComputeShader>("MinimapCull");
-        cullComputeShaderInstance = Instantiate<ComputeShader>(cullComputeShaderPrefab);
+        //cullComputeShaderInstance = Instantiate<ComputeShader>(cullComputeShaderPrefab);
+        cullComputeShaderInstance = cullComputeShaderPrefab;
         //kernelIndex = cullComputeShaderInstance.FindKernel("CullInstances");
         //kernelIndex = cullComputeShaderInstance.FindKernel("PassThrough");
 
@@ -79,8 +79,10 @@ public class MeshInstancedRenderer : MonoBehaviour
         var layer = this.gameObject.layer;
 
         // FIXME SJS for some reason the culled buffer contents are not correct
-        material.SetBuffer(WorldMatrixBufferId, culledInstanceBuffer);
+        //material.SetBuffer(WorldMatrixBufferId, culledInstanceBuffer);
         //material.SetBuffer(WorldMatrixBufferId, instanceBuffer);
+
+        materialPropertyBlock.SetBuffer(WorldMatrixBufferId, culledInstanceBuffer);
 
         RunCullShader();
 
@@ -131,6 +133,7 @@ public class MeshInstancedRenderer : MonoBehaviour
     {
         args.IndexCountPerInstance = mesh.GetIndexCount(subMeshIndex);
         args.InstanceCount = 0;
+        //args.InstanceCount = SizeTotal;
         args.StartIndexLocation = mesh.GetIndexStart(subMeshIndex);
         args.BaseVertexLocation = mesh.GetBaseVertex(subMeshIndex);
         args.StartInstanceLocation = 0;
@@ -144,7 +147,6 @@ public class MeshInstancedRenderer : MonoBehaviour
 
         cullComputeShaderInstance.SetBuffer(kernelIndex, WorldMatrixBufferInputId, instanceBuffer);
         cullComputeShaderInstance.SetBuffer(kernelIndex, WorldMatrixBufferOutputId, culledInstanceBuffer);
-        cullComputeShaderInstance.SetVector(BoundsId, new Vector4(float.NegativeInfinity, float.NegativeInfinity, float.PositiveInfinity, float.PositiveInfinity));
 
         cullComputeShaderInstance.Dispatch(kernelIndex, matrices.Count, 1, 1);
 

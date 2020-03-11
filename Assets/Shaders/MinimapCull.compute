@@ -5,11 +5,6 @@
 #define THREAD_GROUP_SIZE_Z 1
 
 #pragma kernel PassThrough
-#pragma kernel PassThrough A
-#pragma kernel PassThrough B
-#pragma kernel PassThrough C
-#pragma kernel PassThrough D
-#pragma kernel PassThrough E
 
 StructuredBuffer<float4x4> worldMatrixBufferInput;
 AppendStructuredBuffer<float4x4> worldMatrixBufferOutput;

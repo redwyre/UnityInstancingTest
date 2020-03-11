@@ -152,14 +152,10 @@ MonoBehaviour:
   mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
   subMeshIndex: 0
   material: {fileID: 2100000, guid: 0ecf25a6bd33b0b4ab2b75a01d3debaf, type: 2}
-  kernelIndex: 2
+  kernelIndex: 0
   cullComputeShaderPrefab: {fileID: 7200000, guid: f31b2e7daaa9bfa44b644e0f0bc1467c,
     type: 3}
   dirty: 1
-  WorldMatrixBufferId: 450
-  WorldMatrixBufferInputId: 444
-  WorldMatrixBufferOutputId: 445
-  BoundsId: 447
 --- !u!4 &477637383
 Transform:
   m_ObjectHideFlags: 0
@@ -206,14 +202,10 @@ MonoBehaviour:
   mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
   subMeshIndex: 0
   material: {fileID: 2100000, guid: 0ecf25a6bd33b0b4ab2b75a01d3debaf, type: 2}
-  kernelIndex: 1
+  kernelIndex: 0
   cullComputeShaderPrefab: {fileID: 7200000, guid: f31b2e7daaa9bfa44b644e0f0bc1467c,
     type: 3}
   dirty: 1
-  WorldMatrixBufferId: 450
-  WorldMatrixBufferInputId: 444
-  WorldMatrixBufferOutputId: 445
-  BoundsId: 447
 --- !u!4 &649243373
 Transform:
   m_ObjectHideFlags: 0
@@ -381,8 +373,8 @@ Camera:
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
+  m_HDR: 0
+  m_AllowMSAA: 0
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
@@ -452,7 +444,3 @@ MonoBehaviour:
   cullComputeShaderPrefab: {fileID: 7200000, guid: f31b2e7daaa9bfa44b644e0f0bc1467c,
     type: 3}
   dirty: 1
-  WorldMatrixBufferId: 450
-  WorldMatrixBufferInputId: 444
-  WorldMatrixBufferOutputId: 445
-  BoundsId: 447
